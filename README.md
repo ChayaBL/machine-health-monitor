@@ -48,8 +48,11 @@ Workshops and mechanical units
 
 ## ▶️ How to Run
 
-pip install streamlit
-streamlit run app.py
+1. Install Streamlit  
+   pip install streamlit  
+
+2. Run the app  
+   streamlit run app.py  
 
 
 ## Team
