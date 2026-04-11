@@ -6,7 +6,7 @@ The Smart Machine Health Monitor is an intelligent system designed to detect ear
 
 It helps prevent unexpected breakdowns, reduce maintenance costs, and improve overall safety.
 
----
+
 
 ## 🎯 Key Highlights
 - 🔍 Multi-parameter analysis for accurate monitoring  
@@ -15,7 +15,6 @@ It helps prevent unexpected breakdowns, reduce maintenance costs, and improve ov
 - 💻 Interactive web interface using Streamlit  
 - 🛠 Simple yet effective solution for industrial use  
 
----
 
 ## 🧠 How It Works
 1. User inputs machine parameters  
@@ -26,27 +25,27 @@ It helps prevent unexpected breakdowns, reduce maintenance costs, and improve ov
    - ❌ Danger  
 4. Alerts help users take preventive action
 
----
+
 
 ## Real-World Applications
 Industrial machinery monitoring
 Manufacturing systems
 Workshops and mechanical units
 
----
+
 
 ## Future Enhancements
 🤖 AI/ML-based prediction
 📡 IoT sensor integration
 📊 Real-time dashboard & analytics
 
----
+
 
 ## ⚙️ Tech Stack
 - 🐍 Python  
 - 🎨 Streamlit  
 
----
+
 
 ## ▶️ How to Run
 ```bash
