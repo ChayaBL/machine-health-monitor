@@ -46,9 +46,8 @@ Workshops and mechanical units
 - 🎨 Streamlit  
 
 
-
 ## ▶️ How to Run
-```bash
+``bash
 pip install streamlit
 streamlit run app.py
 
