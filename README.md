@@ -49,6 +49,7 @@ This helps reduce downtime, improve safety, and support preventive maintenance.
 Install Flask:
 
 ```bash
+pip install -r requirements.txt
 pip install flask
 ```
 
