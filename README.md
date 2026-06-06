@@ -46,11 +46,10 @@ This helps reduce downtime, improve safety, and support preventive maintenance.
 
 ## ▶️ How to Run
 
-Install Flask:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
-pip install flask
 ```
 
 Run the application:
@@ -64,6 +63,7 @@ Open in browser:
 ```text
 http://127.0.0.1:5000
 ```
+
 
 ## 🚀 Future Enhancements
 
