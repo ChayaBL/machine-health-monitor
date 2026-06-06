@@ -1,62 +1,80 @@
-# machine-health-monitor
-A Smart Machine Health Monitoring System that predicts potential machine failures using parameters like temperature, vibration, speed, noise, and connection status. Built using Python and Streamlit, the system provides real-time analysis and alerts (Good, Warning, Danger) to help prevent damage and reduce maintenance costs.
+# 🚀 Smart Predictive Maintenance System
 
-## 🚀 Overview
-The Smart Machine Health Monitor is an intelligent system designed to detect early signs of machine failure. By analyzing key operational parameters such as temperature, vibration, speed, noise, and connection status, the system provides real-time insights into machine health.
+A Flask-based web application that monitors machine health and predicts potential failures using operational parameters such as temperature, vibration, pressure, speed, and usage hours.
 
-It helps prevent unexpected breakdowns, reduce maintenance costs, and improve overall safety.
+## 📋 Overview
 
+The Smart Predictive Maintenance System helps detect machine issues before they become critical. By analyzing machine parameters, the system calculates a health score, estimates failure risk, identifies problems, and provides maintenance recommendations.
 
+This helps reduce downtime, improve safety, and support preventive maintenance.
 
-## 🎯 Key Highlights
-- 🔍 Multi-parameter analysis for accurate monitoring  
-- ⚡ Real-time health prediction  
-- 🚨 Early warning system (Good / Warning / Danger)  
-- 💻 Interactive web interface using Streamlit  
-- 🛠 Simple yet effective solution for industrial use  
+## ✨ Features
 
+* 🔧 Machine Health Analysis
+* 📊 Health Score Calculation
+* ⚠️ Failure Risk Prediction
+* 🚨 Problem Detection
+* 💡 Maintenance Recommendations
+* 📋 Machine Overview Dashboard
+* 📈 Failure Risk Meter
+* 🔔 Critical Condition Alerts
+* 🎨 Modern Responsive UI
 
 ## 🧠 How It Works
-1. User inputs machine parameters  
-2. System evaluates conditions using logical rules  
-3. Machine status is classified as:
-   - ✅ Good  
-   - ⚠ Warning  
-   - ❌ Danger  
-4. Alerts help users take preventive action
 
+1. User enters machine parameters.
+2. System evaluates machine conditions.
+3. Health Score is calculated.
+4. Failure Risk percentage is generated.
+5. Detected problems are displayed.
+6. Recommended maintenance actions are suggested.
 
+## 📊 Parameters Monitored
 
-## Real-World Applications
-Industrial machinery monitoring
-Manufacturing systems
-Workshops and mechanical units
-
-
-
-## Future Enhancements
-🤖 AI/ML-based prediction
-📡 IoT sensor integration
-📊 Real-time dashboard & analytics
-
-
+* 🌡 Temperature
+* 📳 Vibration
+* ⚙ Pressure
+* 🏎 Working Speed (RPM)
+* ⏳ Usage Hours
 
 ## ⚙️ Tech Stack
-- 🐍 Python  
-- 🎨 Streamlit  
 
+* 🐍 Python
+* 🌶 Flask
+* 🎨 HTML
+* 🎨 CSS
 
 ## ▶️ How to Run
 
-1. Install Streamlit  
-   pip install streamlit  
+Install Flask:
 
-2. Run the app  
-   streamlit run app.py  
+```bash
+pip install flask
+```
 
+Run the application:
 
-## Team
-- Chaya B.L
-- Shreya A.P
-- Ranjitha
-- Bindu Shree K.C
+```bash
+python app.py
+```
+
+Open in browser:
+
+```text
+http://127.0.0.1:5000
+```
+
+## 🚀 Future Enhancements
+
+* 📄 Download Maintenance Reports
+* 📈 Interactive Charts and Analytics
+* 🤖 AI/ML-Based Failure Prediction
+* ☁️ Cloud Deployment
+* 📡 IoT Sensor Integration
+
+## 👨‍💻 Team
+
+* Chaya B.L
+* Shreya A.P
+* Ranjitha
+* Bindu Shree K.C
