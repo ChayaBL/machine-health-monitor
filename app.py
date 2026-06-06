@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "<h1>Hello Chaya! 🚀</h1>"
+    return render_template("index.html")
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
@@ -12,24 +12,96 @@ def analyze():
     temp = int(request.form["temp"])
     vib = int(request.form["vib"])
     pressure = int(request.form["pressure"])
+    speed = int(request.form["speed"])
+    usage = int(request.form["usage"])
 
-    issues = []
+    health_score = 100
 
     if temp > 80:
-        issues.append("High Temperature")
+        health_score -= 20
 
     if vib > 7:
-        issues.append("High Vibration")
+        health_score -= 20
 
     if pressure > 80:
-        issues.append("High Pressure")
+        health_score -= 20
+
+    if speed > 1500:
+        health_score -= 20
+
+    if usage > 12:
+        health_score -= 20
+    
+    
+    issues = []
+    solutions = []
+
+    if temp > 80:
+        issues.append("🔥 High Temperature")
+        solutions.append("❄ Check cooling system")
+
+    if vib > 7:
+        issues.append("📳 High Vibration")
+        solutions.append("🔩 Tighten loose parts")
+
+    if pressure > 80:
+        issues.append("⚙ High Pressure")
+        solutions.append("🛠 Release pressure safely")
+
+    if speed > 1500:
+        issues.append("🏎 High Speed")
+        solutions.append("⬇ Reduce machine speed")
+
+    if usage > 12:
+        issues.append("⏳ Over Usage")
+        solutions.append("☕ Give machine rest time")
 
     if issues:
-        result = "🚨 Machine in Danger! " + ", ".join(issues)
+        result = "🚨 Machine in Danger!"
     else:
         result = "✅ Machine is Healthy"
 
-    return render_template("index.html", result=result)
+    if health_score >= 80:
+        status = "🟢 Healthy"
+        color = "green"
+
+    elif health_score >= 50:
+        status = "🟡 Warning"
+        color = "orange"
+
+    else:
+        status = "🔴 Critical"
+        color = "red"
+
+    if health_score >= 80:
+        message = "Machine operating normally."
+
+    elif health_score >= 50:
+        message = "Maintenance recommended soon."
+
+    else:
+        message = "Immediate maintenance required!"
+
+    failure_risk = 100 - health_score
+    
+
+    return render_template(
+    "index.html",
+    result=result,
+    health_score=health_score,
+    status=status,
+    color=color,
+    issues=issues,
+    solutions=solutions,
+    failure_risk=failure_risk,
+    message=message,
+
+    temp=temp,
+    vib=vib,
+    pressure=pressure,
+    speed=speed,
+    usage=usage
+)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -8,6 +8,7 @@
 
 <div class="container">
 
+    <h2>🚀 Smart Predictive Maintenance System</h2>
     <h1>🔧 Machine Health Monitor</h1>
 
     <form action="/analyze" method="POST">
@@ -21,6 +22,12 @@
         <label>Pressure</label>
         <input type="number" name="pressure" required>
 
+        <label>Working Speed (RPM)</label>
+        <input type="number" name="speed" required>
+
+        <label>Usage Hours</label>
+        <input type="number" name="usage" required>
+
         <button type="submit">Analyze Machine</button>
 
     </form>
@@ -30,8 +37,87 @@
             {{ result }}
         </div>
     {% endif %}
+    {% if issues %}
 
-</div>
+    <h3>🚨 Problems Detected</h3>
+    <ul>
+        {% for issue in issues %}
+            <li>{{ issue }}</li>
+        {% endfor %}
+    </ul>
 
+    <h3>💡 Recommended Solutions</h3>
+    <ul>
+        {% for solution in solutions %}
+            <li>{{ solution }}</li>
+        {% endfor %}
+    </ul>
+
+    {% endif %}
+    {% if health_score is not none %}
+    <div class="card">
+        <h3>📋 Machine Overview</h3>
+
+        <p>🌡 Temperature: {{ temp }}°C</p>
+        <p>📳 Vibration: {{ vib }}</p>
+        <p>⚙ Pressure: {{ pressure }}</p>
+        <p>🏎 Speed: {{ speed }} RPM</p>
+        <p>⏳ Usage: {{ usage }} hrs</p>
+    </div>
+    {% endif %}
+        
+    {% if health_score is not none %}
+    <div class="dashboard">
+
+        <div class="card">
+            <h3>Health Score</h3>
+            <p>{{ health_score }}%</p>
+        </div>
+
+        <div class="card">
+            <h3>Status</h3>
+            <p style="color:{{ color }}">
+                {{ status }}
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Failure Risk</h3>
+            <p>{{ failure_risk }}%</p>
+        </div>
+
+    </div>
+    {% endif %}
+
+    
+
+    {% if health_score is not none %}
+    <div class="progress-section">
+        <h3>📊 Failure Risk Meter</h3>
+
+        <div class="progress-bar">
+            <div class="progress-fill"
+                style="width: {{ failure_risk }}%;">
+            </div>
+        </div>
+
+        <p>{{ failure_risk }}% Risk</p>
+    </div>
+    {% endif %}
+    
+
+    {% if message %}
+    <div class="result">
+        <strong>{{ message }}</strong>
+    </div>
+    {% endif %}
+
+    </div> 
+
+{% if status == "🔴 Critical" %}
+<script>
+alert("🚨 CRITICAL MACHINE CONDITION!");
+</script>
+{% endif %}
 </body>
 </html>
