@@ -67,24 +67,19 @@ def analyze():
     if health_score >= 80:
         status = "🟢 Healthy"
         color = "green"
+        message = "Machine operating normally."
 
     elif health_score >= 50:
         status = "🟡 Warning"
         color = "orange"
+        message = "Maintenance recommended soon."
 
     else:
         status = "🔴 Critical"
         color = "red"
-
-    if health_score >= 80:
-        message = "Machine operating normally."
-
-    elif health_score >= 50:
-        message = "Maintenance recommended soon."
-
-    else:
         message = "Immediate maintenance required!"
 
+    
     failure_risk = 100 - health_score
 
     if failure_risk <= 20:

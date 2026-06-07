@@ -49,7 +49,7 @@ input{
 }
 
 button{
-    width: 100%;
+    
     padding: 12px;
     margin-top: 20px;
     border: none;
@@ -92,8 +92,9 @@ button{
     transition: 0.3s;
 }
 
-.machine-overview{
-    width: 100%;
+input:focus{
+    outline: none;
+    border-color: #2563eb;
 }
 
 .card h3{
@@ -150,6 +151,15 @@ li{
     box-shadow:0 2px 5px rgba(0,0,0,0.05);
 }
 
+.button-group{
+    display: flex;
+    gap: 10px;
+}
+
+.button-group button{
+    flex: 1;
+}
+
 
 button:hover{
     background:#1d4ed8;
@@ -170,4 +180,15 @@ footer{
     text-align:center;
     margin-top:40px;
     color:white;
+}
+.navbar h3{
+    color: white;
+    margin: 0;
+}
+.machine-overview{
+    width: 100%;
+    display: block;
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    text-align: center;
 }

@@ -14,6 +14,9 @@
 
     <h2>🚀 Smart Predictive Maintenance System</h2>
     <h1>🔧 Machine Health Monitor</h1>
+        <p style="text-align:center; color:gray;">
+        Version 1.0
+    </p>
     {% if current_time %}
     <p style="text-align:center; color:#64748b;">
         🕒 Analysis Time: {{ current_time }}
@@ -23,36 +26,71 @@
     <form action="/analyze" method="POST">
 
         <label>Machine ID</label>
-        <input type="text" name="machine_id" required>
+        <input type="text" 
+            name="machine_id"
+            
+            placeholder="Enter Machine ID"
+            required>
 
         <label>Temperature (°C)</label>
-        <input type="number" name="temp" required>
+        <input type="number" name="temp"
+            
+            min="0"
+            placeholder="Enter temperature"
+            required>
 
         <label>Vibration</label>
-        <input type="number" name="vib" required>
+        <input type="number" name="vib"
+            
+            min="0"
+            placeholder="Enter Vibration"
+            required>
+        
 
         <label>Pressure</label>
-        <input type="number" name="pressure" required>
+        <input type="number" name="pressure"
+            
+            min="0"
+            placeholder="Enter Pressure"
+            required>
+        
 
         <label>Working Speed (RPM)</label>
-        <input type="number" name="speed" required>
+        <input type="number" name="speed"
+            
+            min="0"
+            placeholder="Enter Working Speed (RPM) "
+            required>
+        
 
         <label>Usage Hours</label>
-        <input type="number" name="usage" required>
+            <input type="number"
+                name="usage"
+                
+                min="0"
+                placeholder="Enter Usage Hours"
+                required>
+        
+        
 
-        <button type="submit">Analyze Machine</button>
+        
+        <div class="button-group">
+            <button type="submit">Analyze Machine</button>
+            <button type="reset">Reset</button>
+        </div>
 
     </form>
     {% if health_score is not none %}
     <div class="card machine-overview">
         <h3>📋 Machine Overview</h3>
-
-        <p>🌡 Temperature: {{ temp }}°C</p>
-        <p>📳 Vibration: {{ vib }}</p>
-        <p>⚙ Pressure: {{ pressure }}</p>
-        <p>🏎 Speed: {{ speed }} RPM</p>
-        <p>⏳ Usage: {{ usage }} hrs</p>
-        <p>🏭 Machine ID: {{ machine_id }}</p>
+        
+        <p><strong>🏭 Machine ID:</strong> {{ machine_id }}</p>
+        <p><strong>🌡 Temperature:</strong> {{ temp }}°C</p>
+        <p><strong>📳 Vibration:</strong> {{ vib }}</p>
+        <p><strong>⚙ Pressure: </strong> {{ pressure }}</p>
+        <p><strong>🏎 Speed:</strong> {{ speed }} RPM</p>
+        <p><strong>⏳ Usage:</strong> {{ usage }} hrs</p>
+        
     </div>
     {% endif %}
     {% if result %}
