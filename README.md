@@ -73,9 +73,4 @@ http://127.0.0.1:5000
 * ☁️ Cloud Deployment
 * 📡 IoT Sensor Integration
 
-## 👨‍💻 Team
 
-* Chaya B.L
-* Shreya A.P
-* Ranjitha
-* Bindu Shree K.C

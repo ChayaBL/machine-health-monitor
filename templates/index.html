@@ -4,14 +4,26 @@
     <title>Machine Health Monitor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
 <div class="container">
+    <div class="navbar">
+        <h3>🏭 Industry Monitor Pro</h3>
+    </div>
 
     <h2>🚀 Smart Predictive Maintenance System</h2>
     <h1>🔧 Machine Health Monitor</h1>
+    {% if current_time %}
+    <p style="text-align:center; color:#64748b;">
+        🕒 Analysis Time: {{ current_time }}
+    </p>
+    {% endif %}
 
-    <form method="POST">
+    <form action="/analyze" method="POST">
+
+        <label>Machine ID</label>
+        <input type="text" name="machine_id" required>
 
         <label>Temperature (°C)</label>
         <input type="number" name="temp" required>
@@ -31,7 +43,18 @@
         <button type="submit">Analyze Machine</button>
 
     </form>
+    {% if health_score is not none %}
+    <div class="card machine-overview">
+        <h3>📋 Machine Overview</h3>
 
+        <p>🌡 Temperature: {{ temp }}°C</p>
+        <p>📳 Vibration: {{ vib }}</p>
+        <p>⚙ Pressure: {{ pressure }}</p>
+        <p>🏎 Speed: {{ speed }} RPM</p>
+        <p>⏳ Usage: {{ usage }} hrs</p>
+        <p>🏭 Machine ID: {{ machine_id }}</p>
+    </div>
+    {% endif %}
     {% if result %}
         <div class="result">
             {{ result }}
@@ -54,24 +77,16 @@
     </ul>
 
     {% endif %}
-    {% if health_score is not none %}
-    <div class="card">
-        <h3>📋 Machine Overview</h3>
-
-        <p>🌡 Temperature: {{ temp }}°C</p>
-        <p>📳 Vibration: {{ vib }}</p>
-        <p>⚙ Pressure: {{ pressure }}</p>
-        <p>🏎 Speed: {{ speed }} RPM</p>
-        <p>⏳ Usage: {{ usage }} hrs</p>
-    </div>
-    {% endif %}
+    
         
     {% if health_score is not none %}
     <div class="dashboard">
 
         <div class="card">
             <h3>Health Score</h3>
-            <p>{{ health_score }}%</p>
+           <p style="color:{{ color }}">
+                {{ health_score }}%
+            </p>
         </div>
 
         <div class="card">
@@ -80,6 +95,7 @@
                 {{ status }}
             </p>
         </div>
+        
 
         <div class="card">
             <h3>Failure Risk</h3>
@@ -95,9 +111,10 @@
     <div class="progress-section">
         <h3>📊 Failure Risk Meter</h3>
 
-        <div class="progress-bar">
+       <div class="progress-bar">
             <div class="progress-fill"
-                style="width: {{ failure_risk }}%;">
+                style="width: {{ failure_risk }}%;
+                    background: {{ risk_color }};">
             </div>
         </div>
 
@@ -119,5 +136,10 @@
 alert("🚨 CRITICAL MACHINE CONDITION!");
 </script>
 {% endif %}
+
+<footer>
+    Built by Team | Smart Predictive Maintenance System 🚀
+</footer>
+
 </body>
 </html>
