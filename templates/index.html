@@ -32,6 +32,14 @@
             placeholder="Enter Machine ID"
             required>
 
+        <label>Machine Type</label>
+        <select name="machine_type">
+            <option>Motor</option>
+            <option>Pump</option>
+            <option>Compressor</option>
+            <option>Conveyor</option>
+        </select>
+
         <label>Temperature (°C)</label>
         <input type="number" name="temp"
             
@@ -83,7 +91,8 @@
     {% if health_score is not none %}
     <div class="card machine-overview">
         <h3>📋 Machine Overview</h3>
-        
+
+        <p><strong>🏭 Machine Type:</strong> {{ machine_type }}</p>
         <p><strong>🏭 Machine ID:</strong> {{ machine_id }}</p>
         <p><strong>🌡 Temperature:</strong> {{ temp }}°C</p>
         <p><strong>📳 Vibration:</strong> {{ vib }}</p>

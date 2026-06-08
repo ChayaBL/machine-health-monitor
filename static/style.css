@@ -47,6 +47,22 @@ input{
     border-radius: 8px;
     box-sizing: border-box;
 }
+select{
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+input:focus{
+    outline: none;
+    border-color: #2563eb;
+}
+select:focus{
+    outline: none;
+    border-color: #2563eb;
+}
 
 button{
     
@@ -92,10 +108,7 @@ button{
     transition: 0.3s;
 }
 
-input:focus{
-    outline: none;
-    border-color: #2563eb;
-}
+
 
 .card h3{
     margin-bottom: 10px;

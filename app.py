@@ -11,6 +11,7 @@ def home():
 def analyze():
 
     machine_id = request.form["machine_id"]
+    machine_type = request.form["machine_type"]
 
     temp = int(request.form["temp"])
     vib = int(request.form["vib"])
@@ -106,6 +107,7 @@ def analyze():
     risk_color=risk_color,
     message=message,
     machine_id=machine_id,
+    machine_type=machine_type,
     temp=temp,
     vib=vib,
     pressure=pressure,
