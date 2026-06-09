@@ -15,8 +15,8 @@
     <h2>🚀 Smart Predictive Maintenance System</h2>
     <h1>🔧 Machine Health Monitor</h1>
         <p style="text-align:center; color:gray;">
-        Version 1.0
-    </p>
+            Version 1.2
+        </p>
     {% if current_time %}
     <p style="text-align:center; color:#64748b;">
         🕒 Analysis Time: {{ current_time }}
@@ -101,6 +101,7 @@
         <p><strong>⏳ Usage:</strong> {{ usage }} hrs</p>
         
     </div>
+    
     {% endif %}
     {% if result %}
         <div class="result">
@@ -125,6 +126,7 @@
 
     {% endif %}
     
+    
         
     {% if health_score is not none %}
     <div class="dashboard">
@@ -147,6 +149,11 @@
         <div class="card">
             <h3>Failure Risk</h3>
             <p>{{ failure_risk }}%</p>
+        </div>
+
+        <div class="card">
+            <h3>Issues Found</h3>
+            <p>{{ issue_count }}</p>
         </div>
 
     </div>
@@ -176,13 +183,39 @@
     </div>
     {% endif %}
 
-    </div> 
+    
 
 {% if status == "🔴 Critical" %}
 <script>
 alert("🚨 CRITICAL MACHINE CONDITION!");
 </script>
 {% endif %}
+{% if health_score is not none %}
+<h3>📋 Analysis History</h3>
+
+<table>
+    <tr>
+        <th>Date & Time</th>
+        <th>Machine ID</th>
+        <th>Type</th>
+        <th>Health Score</th>
+        <th>Status</th>
+    </tr>
+
+    
+        {% for item in history %}
+        <tr>
+            <td>{{ item.time }}</td>
+            <td>{{ item.machine_id }}</td>
+            <td>{{ item.machine_type }}</td>
+            <td>{{ item.health_score }}%</td>
+            <td>{{ item.status }}</td>
+        </tr>
+        {% endfor %}
+    
+</table>
+{% endif %}
+</div> 
 
 <footer>
     Built by chaya B.L | Smart Predictive Maintenance System 🚀

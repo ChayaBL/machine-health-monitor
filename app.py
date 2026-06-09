@@ -3,6 +3,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+history = []
+
 @app.route("/")
 def home():
         return render_template("index.html")
@@ -60,6 +62,8 @@ def analyze():
         issues.append("⏳ Over Usage")
         solutions.append("☕ Give machine rest time")
 
+    issue_count = len(issues)
+
     if issues:
         result = "🚨 Machine in Danger!"
     else:
@@ -93,6 +97,14 @@ def analyze():
     
     
     current_time = datetime.now().strftime("%d-%m-%Y %H:%M")
+
+    history.append({
+    "time": current_time,
+    "machine_id": machine_id,
+    "machine_type": machine_type,
+    "health_score": health_score,
+    "status": status
+})
     
 
     return render_template(
@@ -103,6 +115,7 @@ def analyze():
     color=color,
     issues=issues,
     solutions=solutions,
+    issue_count=issue_count,
     failure_risk=failure_risk,
     risk_color=risk_color,
     message=message,
@@ -113,7 +126,8 @@ def analyze():
     pressure=pressure,
     speed=speed,
     usage=usage,
-    current_time=current_time
+    current_time=current_time,
+    history=history
 )
 
 if __name__ == "__main__":
