@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 history = []
 
+
 @app.route("/")
 def home():
         return render_template("index.html")
@@ -84,6 +85,15 @@ def analyze():
         color = "red"
         message = "Immediate maintenance required!"
 
+    if health_score >= 80:
+        grade = "A"
+    elif health_score >= 60:
+        grade = "B"
+    elif health_score >= 40:
+        grade = "C"
+    else:
+        grade = "D"
+
     
     failure_risk = 100 - health_score
 
@@ -105,6 +115,7 @@ def analyze():
     "health_score": health_score,
     "status": status
 })
+    total_machines = len(history)
     
 
     return render_template(
@@ -114,11 +125,13 @@ def analyze():
     status=status,
     color=color,
     issues=issues,
+    grade=grade,
     solutions=solutions,
     issue_count=issue_count,
     failure_risk=failure_risk,
     risk_color=risk_color,
     message=message,
+    total_machines=total_machines,
     machine_id=machine_id,
     machine_type=machine_type,
     temp=temp,
