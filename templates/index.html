@@ -15,7 +15,7 @@
     <h2>🚀 Smart Predictive Maintenance System</h2>
     <h1>🔧 Machine Health Monitor</h1>
         <p style="text-align:center; color:gray;">
-            Version 1.2
+            Version 1.3
         </p>
     {% if current_time %}
     <p style="text-align:center; color:#64748b;">
@@ -155,14 +155,53 @@
             <h3>Issues Found</h3>
             <p>{{ issue_count }}</p>
         </div>
-        <div class="card">
-            <h3>Health Grade</h3>
-            <p>{{ grade }}</p>
-        </div>
+        
 
         <div class="card">
             <h3>Total Analyses</h3>
             <p>{{ total_machines }}</p>
+        </div>
+
+        <div class="card">
+            <h3>⚡ Efficiency</h3>
+            <p>{{ efficiency }}%</p>
+        </div>
+
+       <div class="card">
+            <h3>Health Grade</h3>
+
+            <p style="color:{{ score_color }}">
+                {{ grade }}
+            </p>
+        </div>
+        <div class="card">
+            <h3>Condition Badge</h3>
+            <p>{{ badge }}</p>
+        </div>
+
+        <div class="card">
+            <h3>📝 Summary</h3>
+            <p>{{ summary }}</p>
+        </div>
+
+        <div class="card">
+            <h3>🔧 Maintenance Plan</h3>
+            <p>{{ maintenance }}</p>
+        </div>
+
+        <div class="card">
+            <h3>📈 Best Score</h3>
+            <p>{{ best_score }}%</p>
+        </div>
+
+        <div class="card">
+            <h3>📉 Lowest Score</h3>
+            <p>{{ lowest_score }}%</p>
+        </div>
+
+        <div class="card">
+            <h3>📊 Average Score</h3>
+            <p>{{ average_score }}%</p>
         </div>
 
     </div>
@@ -209,6 +248,7 @@ alert("🚨 CRITICAL MACHINE CONDITION!");
         <th>Type</th>
         <th>Health Score</th>
         <th>Status</th>
+        <th>Grade</th>
     </tr>
 
     
@@ -218,7 +258,18 @@ alert("🚨 CRITICAL MACHINE CONDITION!");
             <td>{{ item.machine_id }}</td>
             <td>{{ item.machine_type }}</td>
             <td>{{ item.health_score }}%</td>
-            <td>{{ item.status }}</td>
+            <td style="color:
+                {% if 'Healthy' in item.status %}
+                green
+                {% elif 'Warning' in item.status %}
+                orange
+                {% else %}
+                red
+                {% endif %}
+                ">
+                {{ item.status }}
+            </td>
+            <td>{{ item.grade }}</td>
         </tr>
         {% endfor %}
     

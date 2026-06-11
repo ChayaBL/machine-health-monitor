@@ -94,6 +94,53 @@ def analyze():
     else:
         grade = "D"
 
+    if health_score >= 80:
+        score_color = "green"
+    elif health_score >= 50:
+        score_color = "orange"
+    else:
+        score_color = "red"
+
+    if health_score >= 80:
+        badge = "Excellent 🏆"
+    elif health_score >= 60:
+        badge = "Good 👍"
+    elif health_score >= 40:
+        badge = "Average ⚠️"
+    else:
+        badge = "Poor 🚨"
+
+    if health_score >= 80:
+        summary = "Machine is performing excellently."
+    elif health_score >= 50:
+        summary = "Machine needs attention soon."
+    else:
+        summary = "Machine requires immediate maintenance."
+
+    if health_score >= 80:
+        maintenance = "Next maintenance after 30 days"
+    elif health_score >= 50:
+        maintenance = "Schedule maintenance within 7 days"
+    else:
+        maintenance = "Immediate maintenance required"
+    
+    efficiency = 100
+
+    if temp > 80:
+        efficiency -= 10
+
+    if vib > 7:
+        efficiency -= 10
+
+    if pressure > 80:
+        efficiency -= 10
+
+    if speed > 1500:
+        efficiency -= 10
+
+    if usage > 12:
+        efficiency -= 10
+
     
     failure_risk = 100 - health_score
 
@@ -113,9 +160,16 @@ def analyze():
     "machine_id": machine_id,
     "machine_type": machine_type,
     "health_score": health_score,
-    "status": status
+    "status": status,
+    "grade": grade
 })
     total_machines = len(history)
+
+    scores = [item["health_score"] for item in history]
+
+    best_score = max(scores)
+    lowest_score = min(scores)
+    average_score = round(sum(scores) / len(scores), 1)
     
 
     return render_template(
@@ -129,7 +183,15 @@ def analyze():
     solutions=solutions,
     issue_count=issue_count,
     failure_risk=failure_risk,
+    best_score=best_score,
+    lowest_score=lowest_score,
+    average_score=average_score,
+    summary=summary,
+    efficiency=efficiency,
+    maintenance=maintenance,
     risk_color=risk_color,
+    score_color=score_color,
+    badge=badge,
     message=message,
     total_machines=total_machines,
     machine_id=machine_id,
