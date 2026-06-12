@@ -64,6 +64,19 @@ Open in browser:
 http://127.0.0.1:5000
 ```
 
+## 🗄️ Database
+
+The application stores machine analysis records using SQLite.
+
+Stored Information:
+- Date & Time
+- Machine ID
+- Machine Type
+- Health Score
+- Status
+- Grade
+
+This enables historical tracking and future analytics.
 
 ## 🚀 Future Enhancements
 
