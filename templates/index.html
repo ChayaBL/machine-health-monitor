@@ -238,7 +238,32 @@
 alert("🚨 CRITICAL MACHINE CONDITION!");
 </script>
 {% endif %}
-{% if health_score is not none %}
+
+<h3>🔍 Search History By Date</h3>
+
+<form action="/search" method="POST">
+
+    <input
+        type="date"
+        name="search_date"
+        required>
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+<form action="/" method="GET">
+
+    <button type="submit">
+        Show All History
+    </button>
+
+</form>
+
+
+{% if history %}
+
 <h3>📋 Analysis History</h3>
 
 <table>

@@ -1,3 +1,4 @@
+import sqlite3
 from flask import Flask, render_template, request
 from datetime import datetime
 
@@ -8,7 +9,11 @@ history = []
 
 @app.route("/")
 def home():
-        return render_template("index.html")
+
+    return render_template(
+        "index.html",
+        history=history
+    )
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
@@ -163,6 +168,31 @@ def analyze():
     "status": status,
     "grade": grade
 })
+    conn = sqlite3.connect("machines.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    INSERT INTO history (
+        time,
+        machine_id,
+        machine_type,
+        health_score,
+        status,
+        grade
+    )
+    VALUES (?, ?, ?, ?, ?, ?)
+    """, (
+        current_time,
+        machine_id,
+        machine_type,
+        health_score,
+        status,
+        grade
+    ))
+
+    conn.commit()
+    conn.close()
     total_machines = len(history)
 
     scores = [item["health_score"] for item in history]
@@ -204,6 +234,30 @@ def analyze():
     current_time=current_time,
     history=history
 )
+@app.route("/search", methods=["POST"])
+def search():
 
+    search_date = request.form["search_date"]
+
+    date_obj = datetime.strptime(
+        search_date,
+        "%Y-%m-%d"
+    )
+
+    formatted_date = date_obj.strftime(
+        "%d-%m-%Y"
+    )
+
+    filtered_history = []
+
+    for item in history:
+        if formatted_date in item["time"]:
+            filtered_history.append(item)
+
+    return render_template(
+    "index.html",
+    history=filtered_history,
+    message=f"Found {len(filtered_history)} record(s)"
+)
 if __name__ == "__main__":
     app.run(debug=True)
