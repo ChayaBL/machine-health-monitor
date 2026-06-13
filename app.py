@@ -10,9 +10,35 @@ history = []
 @app.route("/")
 def home():
 
+    conn = sqlite3.connect("machines.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT time, machine_id, machine_type,
+           health_score, status, grade
+    FROM history
+    ORDER BY id DESC
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    history_data = []
+
+    for row in rows:
+        history_data.append({
+            "time": row[0],
+            "machine_id": row[1],
+            "machine_type": row[2],
+            "health_score": row[3],
+            "status": row[4],
+            "grade": row[5]
+        })
+
     return render_template(
         "index.html",
-        history=history
+        history=history_data
     )
 
 @app.route("/analyze", methods=["POST"])
@@ -248,16 +274,73 @@ def search():
         "%d-%m-%Y"
     )
 
+    conn = sqlite3.connect("machines.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT time, machine_id, machine_type,
+        health_score, status, grade
+    FROM history
+    WHERE time LIKE ?
+    """, (f"%{formatted_date}%",))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
     filtered_history = []
 
-    for item in history:
-        if formatted_date in item["time"]:
-            filtered_history.append(item)
+    for row in rows:
+        filtered_history.append({
+            "time": row[0],
+            "machine_id": row[1],
+            "machine_type": row[2],
+            "health_score": row[3],
+            "status": row[4],
+            "grade": row[5]
+        })
 
     return render_template(
     "index.html",
     history=filtered_history,
     message=f"Found {len(filtered_history)} record(s)"
 )
+@app.route("/search_machine", methods=["POST"])
+def search_machine():
+
+    machine_id = request.form["machine_id"]
+
+    conn = sqlite3.connect("machines.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT time, machine_id, machine_type,
+        health_score, status, grade
+    FROM history
+    WHERE machine_id = ?
+    ORDER BY id DESC
+    """, (machine_id,))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    filtered_history = []
+
+    for row in rows:
+        filtered_history.append({
+            "time": row[0],
+            "machine_id": row[1],
+            "machine_type": row[2],
+            "health_score": row[3],
+            "status": row[4],
+            "grade": row[5]
+        })
+
+    return render_template(
+        "index.html",
+        history=filtered_history,
+        message=f"Found {len(filtered_history)} record(s)"
+    )
 if __name__ == "__main__":
     app.run(debug=True)
