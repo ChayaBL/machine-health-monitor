@@ -1,3 +1,6 @@
+from reportlab.pdfgen import canvas
+import csv
+from flask import make_response
 import sqlite3
 from flask import Flask, render_template, request
 from datetime import datetime
@@ -342,5 +345,76 @@ def search_machine():
         history=filtered_history,
         message=f"Found {len(filtered_history)} record(s)"
     )
+@app.route("/export")
+def export():
+
+    conn = sqlite3.connect("machines.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT time, machine_id, machine_type,
+           health_score, status, grade
+    FROM history
+    ORDER BY id DESC
+    """)
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    csv_data = "Time,Machine ID,Machine Type,Health Score,Status,Grade\n"
+
+    for row in rows:
+        csv_data += f"{row[0]},{row[1]},{row[2]},{row[3]},{row[4]},{row[5]}\n"
+
+    response = make_response(csv_data)
+
+    response.headers["Content-Disposition"] = \
+        "attachment; filename=machine_history.csv"
+
+    response.headers["Content-Type"] = "text/csv"
+
+    return response
+@app.route("/export_pdf")
+def export_pdf():
+
+    conn = sqlite3.connect("machines.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT time, machine_id, machine_type,
+           health_score, status, grade
+    FROM history
+    ORDER BY id DESC
+    """)
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    pdf = canvas.Canvas("machine_report.pdf")
+
+    pdf.setTitle("Machine Report")
+
+    pdf.drawString(
+        100,
+        800,
+        "Smart Predictive Maintenance Report"
+    )
+
+    y = 760
+
+    for row in rows:
+        pdf.drawString(
+            50,
+            y,
+            f"{row[0]} | {row[1]} | {row[2]} | {row[3]}%"
+        )
+        y -= 20
+        if y < 50:
+            pdf.showPage()
+            y = 800
+
+    pdf.save()
+
+    return "PDF Generated Successfully"
 if __name__ == "__main__":
     app.run(debug=True)
