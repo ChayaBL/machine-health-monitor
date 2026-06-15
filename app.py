@@ -1,3 +1,4 @@
+from flask import send_file
 from reportlab.pdfgen import canvas
 import csv
 from flask import make_response
@@ -415,6 +416,10 @@ def export_pdf():
 
     pdf.save()
 
-    return "PDF Generated Successfully"
+    return send_file(
+    "machine_report.pdf",
+    as_attachment=True,
+    download_name="machine_report.pdf"
+)
 if __name__ == "__main__":
     app.run(debug=True)
