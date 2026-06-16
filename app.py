@@ -421,5 +421,58 @@ def export_pdf():
     as_attachment=True,
     download_name="machine_report.pdf"
 )
+@app.route("/search_type", methods=["POST"])
+def search_type():
+
+    machine_type = request.form["machine_type"]
+
+    conn = sqlite3.connect("machines.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT time, machine_id, machine_type,
+           health_score, status, grade
+    FROM history
+    WHERE machine_type = ?
+    ORDER BY id DESC
+    """, (machine_type,))
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    filtered_history = []
+
+    for row in rows:
+        filtered_history.append({
+            "time": row[0],
+            "machine_id": row[1],
+            "machine_type": row[2],
+            "health_score": row[3],
+            "status": row[4],
+            "grade": row[5]
+        })
+
+    return render_template(
+        "index.html",
+        history=filtered_history,
+        message=f"Found {len(filtered_history)} record(s)"
+    )
+@app.route("/delete_history", methods=["POST"])
+def delete_history():
+
+    conn = sqlite3.connect("machines.db")
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM history")
+
+    conn.commit()
+    conn.close()
+
+    return render_template(
+        "index.html",
+        history=[],
+        message="All history deleted successfully!"
+    )
 if __name__ == "__main__":
     app.run(debug=True)

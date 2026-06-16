@@ -325,6 +325,26 @@ alert("🚨 CRITICAL MACHINE CONDITION!");
         📄 Export PDF
     </button>
 </form>
+<h3>🔍 Search By Machine Type</h3>
+
+<form action="/search_type" method="POST">
+    <select name="machine_type">
+        <option>Motor</option>
+        <option>Pump</option>
+        <option>Compressor</option>
+        <option>Conveyor</option>
+    </select>
+
+    <button type="submit">
+        Search
+    </button>
+</form>
+
+<form action="/delete_history" method="POST">
+    <button type="submit">
+        🗑 Delete All History
+    </button>
+</form>
 </div> 
 
 <footer>
